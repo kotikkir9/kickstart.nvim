@@ -84,7 +84,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -108,7 +108,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',          opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -122,7 +122,8 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -164,7 +165,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -189,14 +190,6 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
-  },
-
-  {
-    'theprimegen/harpoon',
-    keys = {
-      { '<C-e>', require('harpoon.ui').toggle_quick_menu },
-      { '<leader>a', require('harpoon.mark').add_file }
-    },
   },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -427,10 +420,13 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
+  nmap('<leader>f', vim.lsp.buf.format, '[Auto] [F]ormat')
+
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+--  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+--    vim.lsp.buf.format()
+--  end, { desc = 'Format current buffer with LSP' })
+
 end
 
 -- Enable the following language servers

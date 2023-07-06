@@ -191,6 +191,13 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  {
+    'theprimegen/harpoon',
+    keys = {
+      { '<C-e>', require('harpoon.ui').toggle_quick_menu },
+      { '<leader>a', require('harpoon.mark').add_file }
+    },
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -204,6 +211,11 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
 }, {})
+
+-- Keybindings for harpoon (done inside Lazy setup process)
+-- vim.keymap.set('n', '<leader>a', require('harpoon.mark').add_file)
+-- vim.keymap.set('n', '<C-e>', require('harpoon.ui').toggle_quick_menu)
+
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -360,7 +372,8 @@ require('nvim-treesitter.configs').setup {
     swap = {
       enable = true,
       swap_next = {
-        ['<leader>a'] = '@parameter.inner',
+        -- TODO: This shortcut is already used for harpoon?
+        --['<leader>a'] = '@parameter.inner',
       },
       swap_previous = {
         ['<leader>A'] = '@parameter.inner',

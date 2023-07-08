@@ -275,12 +275,12 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 
 -- Insert mode test
-vim.keymap.set('i', '<c-l>', '<C-o>a')
-vim.keymap.set('i', '<c-h>', '<C-o>h')
-vim.keymap.set('i', '<c-k>', '<C-o>k')
-vim.keymap.set('i', '<c-j>', '<C-o>j')
-vim.keymap.set('i', '<c-w>', '<C-o>w')
-vim.keymap.set('i', '<c-b>', '<C-o>b')
+vim.keymap.set('i', '<c-l>', '<Right>') -- Right
+vim.keymap.set('i', '<c-h>', '<Left>')  -- Left
+vim.keymap.set('i', '<c-k>', '<Up>')  -- Up
+vim.keymap.set('i', '<c-j>', '<Down>')  -- Down
+vim.keymap.set('i', '<c-w>', '<C-o>w')  -- Next word
+vim.keymap.set('i', '<c-b>', '<C-o>b')  -- Prev word
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

@@ -165,7 +165,20 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {},
+    config = function()
+      require('Comment').setup({
+        toggler = {
+          line = '<C-Q>',
+        },
+        opleader = {
+          line = '<C-Q>',
+        }
+      })
+    end
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -208,7 +221,6 @@ require('lazy').setup({
 -- Keybindings for harpoon (done inside Lazy setup process)
 -- vim.keymap.set('n', '<leader>a', require('harpoon.mark').add_file)
 -- vim.keymap.set('n', '<C-e>', require('harpoon.ui').toggle_quick_menu)
-
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -257,7 +269,18 @@ vim.o.termguicolors = true
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Back to file explorer' })
+
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- Insert mode test
+vim.keymap.set('i', '<c-l>', '<C-o>a')
+vim.keymap.set('i', '<c-h>', '<C-o>h')
+vim.keymap.set('i', '<c-k>', '<C-o>k')
+vim.keymap.set('i', '<c-j>', '<C-o>j')
+vim.keymap.set('i', '<c-w>', '<C-o>w')
+vim.keymap.set('i', '<c-b>', '<C-o>b')
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -421,12 +444,10 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   nmap('<leader>f', vim.lsp.buf.format, '[Auto] [F]ormat')
-
   -- Create a command `:Format` local to the LSP buffer
---  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
---    vim.lsp.buf.format()
---  end, { desc = 'Format current buffer with LSP' })
-
+  --  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --    vim.lsp.buf.format()
+  --  end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
